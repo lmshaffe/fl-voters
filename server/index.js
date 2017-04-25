@@ -20,6 +20,9 @@ try {
         }, (err) => {
           console.log('Unable to save voter', err);
         })
+      }, (err) => {
+        console.log('Error while createVoterDataFromArray', err);
+        process.exit(1);
       })
     })
     .on('end', () => {
