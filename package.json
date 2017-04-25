@@ -10,6 +10,7 @@
   "license": "ISC",
   "dependencies": {
     "csv-parse": "^1.2.0",
-    "mongoose": "^4.9.6"
+    "mongoose": "^4.9.6",
+    "yargs": "^7.1.0"
   }
 }

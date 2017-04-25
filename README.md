@@ -1,4 +1,5 @@
 # fl-voters
+Run `node index.js --file=filename` with the `filename` being the file downloaded from the below site.
 
 Sample text-file extracted from here: http://flvoters.com/download/20170228/20170307_VoterDetail/
 
