@@ -49,17 +49,6 @@ VoterSchema.virtual('voterId').get(function() {
   return this._id;
 })
 
-VoterSchema.statics.createVoterDataFromArray = function (dataArray) {
-  let i = 0;
-  let voterObj = {};
-  let props = Object.keys(VoterSchema.paths);
-  props.forEach((prop) => {
-    if (prop === '__v') return;
-    voterObj[prop] = dataArray[i++];
-  })
-  return Promise.resolve(voterObj);
-}
-
 let Voter = mongoose.model('Voter', VoterSchema)
 
-module.exports = {Voter}
+module.exports = Voter;

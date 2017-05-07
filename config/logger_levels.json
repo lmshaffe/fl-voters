@@ -1,0 +1,49 @@
+{
+  "logLevels": [
+    {
+      "name": "fatal",
+      "level": 0,
+      "color": "red"
+    }, {
+      "name": "error",
+      "level": 1,
+      "color": "red"
+    }, {
+      "name": "warn",
+      "level": 2,
+      "color": "yellow"
+    }, {
+      "name": "db",
+      "level": 3,
+      "color": "white"
+    }, {
+      "name": "api",
+      "level": 4,
+      "color": "white"
+    }, {
+      "name": "data",
+      "level": 5,
+      "color": "blue"
+    }, {
+      "name": "debug",
+      "level": 6,
+      "color": "cyan"
+    }, {
+      "name": "info",
+      "level": 7,
+      "color": "green"
+    }, {
+      "name": "trace",
+      "level": 8,
+      "color": "grey"
+    }, {
+      "name": "silly",
+      "level": 9,
+      "color": "magenta"
+    }, {
+      "name": "all",
+      "level": 100,
+      "color": "white"
+    }
+  ]
+}

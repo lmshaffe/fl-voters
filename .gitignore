@@ -66,4 +66,5 @@ typings/
 
 # source data files
 data/
+config/app_config/**
 .vscode/

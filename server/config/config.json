@@ -1,5 +1,0 @@
-{
-  "dev": {
-    "MONGODB_URI": "mongodb://localhost:32768/VoterApp"
-  }
-}
