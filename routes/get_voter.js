@@ -18,7 +18,8 @@ module.exports = function(app) {
       else res.status(voterError.notFound.status).json(voterError.notFound);
     })
     .catch(err => {
-      logger.error('get_voter:getVoters - Error: ${err}');
+      logger.error('get_voter:getVoters:');
+      logger.error(err);
       res.status(voterError.exception.status).json(voterError.exception);
     })
   }
