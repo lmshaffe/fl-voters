@@ -5,11 +5,10 @@ In `config/app_config`, create a file called .env_dev. This file is not included
 
 ### Running the app
 #### Prerequisites
-You must have `node v7.6` and up and `npm` already installed globally on your machine. This project is preferrably used with `yarn` to install packages and manage dependencies. If you do not have yarn just do a `npm install -g yarn`.
+You must have `node v7.6` and up and `npm` already installed globally on your machine. This project is preferrably used with `yarn` to install packages and manage dependencies. If you do not have yarn just do an `npm install -g yarn`.
 
 #### Start
-Just do an `npm start`
-
+Install packages using `yarn install` and once it's finished, just do an `npm start`
 
 The app uses `gulp`, but it's not really doing much at the moment. It will just start the server and watch for changes and do automatic restarts.
 
