@@ -68,3 +68,5 @@ typings/
 data/
 config/app_config/**
 .vscode/
+
+!config/app_config/.gitkeep
