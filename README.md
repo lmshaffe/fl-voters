@@ -5,7 +5,7 @@ In `config/app_config`, create a file called .env_dev. This file is not included
 
 ### Running the app
 #### Prerequisites
-You must have `node` and `npm` already installed globally on your machine. This project is preferrably used with `yarn` to install packages and manage dependencies. If you do not have yarn just do a `npm install -g yarn`.
+You must have `node v7.6` and up and `npm` already installed globally on your machine. This project is preferrably used with `yarn` to install packages and manage dependencies. If you do not have yarn just do a `npm install -g yarn`.
 
 #### Start
 Just do an `npm start`
