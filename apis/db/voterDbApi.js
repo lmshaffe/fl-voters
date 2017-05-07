@@ -9,18 +9,17 @@ module.exports = function(app) {
       this._logger = app.locals.logger;
     }
 
-    getVoters(voters) {
-      return new Promise((resolve, reject) => {
-        let query = (!voters) ? Voter.find().limit(10)
-                              : Voter.findOne({'_id': voters});
-        this._queryDB(query).then(voters => {
-          resolve(voters);
-        }, err => {
-          this._logger.error('voterDbApi:getVoters:');
-          this._logger.error(err);
-          reject(err);
-        })
-      })
+    async getVoters(voters) {
+      let query = (!voters) ? Voter.find().limit(10)
+                            : Voter.findOne({'_id': voters});
+      try {
+        let voters = await this._queryDB(query);
+        return voters;
+      } catch (err){
+        this._logger.error('voterDbApi:getVoters:');
+        this._logger.error(err);
+        return(err);
+      }
     }
 
     _queryDB(query) {

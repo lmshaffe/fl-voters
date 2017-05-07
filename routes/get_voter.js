@@ -10,18 +10,17 @@ module.exports = function(app) {
   router.get('/voters', getVoters);
   router.get('/voters/:voters', getVoters);
 
-  function getVoters(req, res, next) {
+  async function getVoters(req, res, next) {
     let voters = req.params.voters;
-    voterDbApi.getVoters(voters)
-    .then(voters => {
-      if (voters) res.json(voters);
+    try {
+      let voterResults = await voterDbApi.getVoters(voters)
+      if (voterResults) res.json(voterResults);
       else res.status(voterError.notFound.status).json(voterError.notFound);
-    })
-    .catch(err => {
+    } catch (err){
       logger.error('get_voter:getVoters:');
       logger.error(err);
       res.status(voterError.exception.status).json(voterError.exception);
-    })
+    }
   }
 
   logger.info('Initializing get_voter complete.');
