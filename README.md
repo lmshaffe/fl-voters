@@ -13,6 +13,15 @@ Install packages using `yarn install` and once it's finished, just do an `npm st
 The app uses `gulp`, but it's not really doing much at the moment. It will just start the server and watch for changes and do automatic restarts.
 
 ### Routes
-To start, the app has two voters endpoints. `/voters` and `/voters/:voterId`. The former will return the first 10 voters, and the latter will return the voter that you have provided the ID for.
+To start, the app has two voters endpoints. `/voters` and `/voters/:voterId`.
 
-In the future, we will probably need to send a JSON request body and let the API decide how to find the voter. The app will have many different ways to find a voter, so the endpoint will probably end up being just `/voters` with a request body.
+#####Parameters:
+`/voters` takes the following query parameters:
++ **page** - Number. optional. defaults to page 1
++ **limit** - Number. optional. defaults to 50
++ **firstName** - String. optional.
++ **lastName** - String. optional.
+
+`/voters/:voterId` accepts no query parameters and will only return one voter based on the voter ID.
+
+In the future, more endpoints will be added based on how we will be searching for data.

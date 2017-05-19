@@ -1,35 +1,63 @@
 
 module.exports = function(app) {
-  const Voter = require('../../db/models/voter');
+  const Voter = require('../../db/models/voter')
 
   class voterDbApi {
 
     constructor() {
-      this._app = app;
-      this._logger = app.locals.logger;
+      this._app = app
+      this._logger = app.locals.logger
     }
 
-    async getVoters(voters) {
-      let query = (!voters) ? Voter.find().limit(10)
-                            : Voter.findOne({'_id': voters});
+    async getVotersById(voterId) {
+      let query = Voter.findOne({'_id': voterId})
       try {
-        let voters = await this._queryDB(query);
-        return voters;
+        let voters = await this._queryDb(query)
+        return voters
       } catch (err){
-        this._logger.error('voterDbApi:getVoters:');
-        this._logger.error(err);
-        return(err);
+        this._logger.error('voterDbApi:getVoterById:')
+        this._logger.error(err)
+        throw new Error(err);
       }
     }
 
-    _queryDB(query) {
+    async getVoters(page, perPage, firstName, lastName) {
+      let queryCondition = {}
+      if (firstName) queryCondition.firstName = firstName
+      if (lastName) queryCondition.lastName = lastName
+      try {
+        let totalCount = await this._getDbCount(queryCondition)
+        let query = Voter.find(queryCondition).limit(perPage).skip(perPage * (page - 1)).sort({lastName: 'asc'})
+        let voters = await this._queryDb(query)
+        voters.totalCount = totalCount
+        voters.isMore = perPage * page < totalCount
+        voters.totalPages = Math.ceil((totalCount / perPage))
+        return voters
+      } catch (err) {
+        this._logger.error('voterDbApi:getVoters:')
+        this._logger.error(err)
+        throw new Error(err)
+      }
+    }
+
+    async _queryDb(query) {
       return query.lean().then(results => {
         return (results) ? results : null
       }, (err) => {
-        this._logger.error('voterDbApi:_queryDB:');
-        this._logger.error(err);
-        throw new Error(err);
-      });
+        this._logger.error('voterDbApi:_queryDB:')
+        this._logger.error(err)
+        throw new Error(err)
+      })
+    }
+
+    async _getDbCount(queryCondition) {
+      return Voter.count(queryCondition).then(count => {
+        return count
+      }, (err) => {
+        this._logger.error('voterDbApi:_getDbCount:')
+        this._logger.error(err)
+        throw new Error(err)
+      })
     }
   }
 
