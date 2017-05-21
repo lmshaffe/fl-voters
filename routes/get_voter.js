@@ -6,6 +6,8 @@ module.exports = function(app) {
   logger.info('Initializing get_voter routes.')
   const voterError = require('../util/error/voterError')(app)
   const voterDbApi = require('../apis/db/voterDbApi')(app)
+  let memoize = require('memoizee');
+  let memoizedGetVoters = memoize(voterDbApi.getVoters.bind(voterDbApi), {promise: true})
 
   router.get('/voters', getVoters)
   router.get('/voters/:voterId', getVotersById)
@@ -13,7 +15,7 @@ module.exports = function(app) {
   async function getVoters(req, res, next) {
     let {page, limit, firstName, lastName} = extractRequestData(req)
     try {
-      let results = await voterDbApi.getVoters(page, limit, firstName, lastName)
+      let results = await memoizedGetVoters(page, limit, firstName, lastName)
       if (results) {
         let {isMore, totalCount, totalPages} = results
         let response = {isMore, totalCount, totalPages, results}

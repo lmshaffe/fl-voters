@@ -5,7 +5,6 @@ module.exports = function(app) {
   class voterDbApi {
 
     constructor() {
-      this._app = app
       this._logger = app.locals.logger
     }
 
@@ -28,8 +27,6 @@ module.exports = function(app) {
       let findQuery = Voter.find(queryCondition).limit(perPage).skip(perPage * (page - 1)).sort({lastName: 'asc'})
       try {
         let [totalCount, voters] = await Promise.all([this._getDbCount(queryCondition), this._queryDb(findQuery)]);
-        // let totalCount = await this._getDbCount(queryCondition)
-        // let voters = await this._queryDb(query)
         voters.totalCount = totalCount
         voters.isMore = perPage * page < totalCount
         voters.totalPages = Math.ceil((totalCount / perPage))
@@ -61,6 +58,5 @@ module.exports = function(app) {
       })
     }
   }
-
   return new voterDbApi();
 }
