@@ -25,10 +25,11 @@ module.exports = function(app) {
       let queryCondition = {}
       if (firstName) queryCondition.firstName = firstName
       if (lastName) queryCondition.lastName = lastName
+      let findQuery = Voter.find(queryCondition).limit(perPage).skip(perPage * (page - 1)).sort({lastName: 'asc'})
       try {
-        let totalCount = await this._getDbCount(queryCondition)
-        let query = Voter.find(queryCondition).limit(perPage).skip(perPage * (page - 1)).sort({lastName: 'asc'})
-        let voters = await this._queryDb(query)
+        let [totalCount, voters] = await Promise.all([this._getDbCount(queryCondition), this._queryDb(findQuery)]);
+        // let totalCount = await this._getDbCount(queryCondition)
+        // let voters = await this._queryDb(query)
         voters.totalCount = totalCount
         voters.isMore = perPage * page < totalCount
         voters.totalPages = Math.ceil((totalCount / perPage))
